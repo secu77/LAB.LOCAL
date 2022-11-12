@@ -1,0 +1,12 @@
+# LAB.LOCAL DNS records
+192.168.10.1 vps.lab.local
+192.168.10.2 laptop.lab.local
+
+192.168.10.1 git.lab.local
+192.168.10.1 md.lab.local
+192.168.10.1 chat.lab.local
+192.168.10.1 pass.lab.local
+192.168.10.1 wekan.lab.local
+192.168.10.1 wiki.lab.local
+192.168.10.1 draw.lab.local
+192.168.10.1 meet.lab.local

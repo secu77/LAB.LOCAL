@@ -1,0 +1,51 @@
+version: '2'
+services:
+  wekandb:
+    image: mongo:5
+    container_name: wekan-db
+    restart: always
+    command: mongod --logpath /dev/null --oplogSize 128 --quiet
+    networks:
+      - wekan-tier
+    expose:
+      - 27017
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /srv/data/wekan/wekan-db:/data/db
+      - /srv/data/wekan/wekan-db-dump:/dump
+  wekan:
+    image: quay.io/wekan/wekan
+    container_name: wekan-app
+    restart: always
+    networks:
+      - wekan-tier
+    ports:
+      - "127.0.0.1:8003:8080"
+    environment:
+      - WRITABLE_PATH=/data
+      - MONGO_URL=mongodb://wekandb:27017/wekan
+      - ROOT_URL=https://wekan.lab.local
+      - WITH_API=true
+      - RICHER_CARD_COMMENT_EDITOR=false
+      - CARD_OPENED_WEBHOOK_ENABLED=false
+      - BIGEVENTS_PATTERN=NONE
+      - BROWSER_POLICY_ENABLED=true
+    depends_on:
+      - wekandb
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /srv/data/wekan/wekan-files:/data:rw
+volumes:
+  wekan-files:
+    driver: local
+  wekan-db:
+    driver: local
+  wekan-db-dump:
+    driver: local
+networks:
+  wekan-tier:
+    driver: bridge
+    external: false
+    driver_opts:
+      com.docker.network.bridge.name: br_wekan

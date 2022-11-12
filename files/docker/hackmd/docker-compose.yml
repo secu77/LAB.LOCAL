@@ -1,0 +1,33 @@
+version: "3"
+services:
+  database:
+    image: postgres:11.6-alpine
+    environment:
+      - POSTGRES_USER=codimd
+      - POSTGRES_PASSWORD=Postgr3sP4ssw0rd
+      - POSTGRES_DB=codimd
+    volumes:
+      - "/srv/data/hackmd/database-data:/var/lib/postgresql/data"
+    restart: always
+    ports:
+      - "127.0.0.1:5432:5432"
+    networks:
+      - hackmd
+  codimd:
+    image: hackmdio/hackmd:2.4.2
+    environment:
+      - CMD_DB_URL=postgres://codimd:Postgr3sP4ssw0rd@database/codimd
+      - CMD_USECDN=false
+    depends_on:
+      - database
+    ports:
+      - "127.0.0.1:8001:3000"
+    volumes:
+      - "/srv/data/hackmd/upload-data:/home/hackmd/app/public/uploads"
+    restart: always
+    networks:
+      - hackmd
+networks:
+  hackmd:
+    driver_opts:
+      com.docker.network.bridge.name: br_hackmd

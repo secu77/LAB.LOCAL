@@ -1,0 +1,17 @@
+version: '3.5'
+services:
+  drawio:
+    image: jgraph/drawio
+    container_name: drawio
+    restart: always
+    ports:
+      - "127.0.0.1:8003:8080"
+      - "127.0.0.1:8443:8443"
+    env_file:
+      - draw.env
+    networks:
+      - drawio
+networks:
+  drawio:
+    driver_opts:
+      com.docker.network.bridge.name: br_drawio

@@ -1,0 +1,23 @@
+version: "3"
+services:
+  gitea:
+    image: gitea/gitea:1.17.3
+    container_name: gitea
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    restart: always
+    networks:
+      - gitea
+    volumes:
+      - /srv/data/gitea/data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "127.0.0.1:8000:3000"
+      - "192.168.10.1:2222:22"
+networks:
+  gitea:
+    external: false
+    driver_opts:
+      com.docker.network.bridge.name: br_gitea

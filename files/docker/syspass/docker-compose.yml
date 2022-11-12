@@ -1,0 +1,26 @@
+version: '3'
+services:
+  app:
+    container_name: syspass-app
+    image: syspass/syspass:3.2.11-php7.4
+    restart: always
+    ports:
+      - "127.0.0.1:8444:443"
+    depends_on:
+      - db
+    volumes:
+      - /srv/data/syspass/syspass-config:/var/www/html/sysPass/app/config
+      - /srv/data/syspass/syspass-backup:/var/www/html/sysPass/app/backup
+    environment:
+      - USE_SSL=yes
+      - COMPOSER_EXTENSIONS=syspass/plugin-authenticator
+  db:
+    container_name: syspass-db
+    restart: always
+    image: mariadb:10.2
+    environment:
+      - MYSQL_ROOT_PASSWORD=MySQLP4ssw0rd
+    expose:
+      - "3306"
+    volumes:
+      - /srv/data/syspass/syspass-db:/var/lib/mysql
