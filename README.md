@@ -20,6 +20,8 @@ Máquina Virtual - **LAPTOP**:
 - 15GB espacio en disco
 - 4Gb memoria ram
 
+**Las máquinas virtuales se pueden descargar en formato OVA desde [aquí](https://drive.google.com/drive/folders/1YbdjxUnHZsy5Cmj2q52chs8u_TniWMBs?usp=sharing)**
+
 Opcionalmente, si se puede disponer de un segundo equipo para utilizarlo como "Virtualizador" y conectarlo con la VPN, sería perfecto. No obstante, como se sabe que no es un requerimiento sencillo, simplemente se mostrará el proceso para poder realizar las configuraciones e instalaciones necesarias.
 
 > Este segundo equipo, debe disponer de las características suficientes para poder ejecutar (por lo menos) una máquina virtual además del sistema del host; el cual se recomienda que sea Windows para coincidir con el escenario planteado en esta guía.
